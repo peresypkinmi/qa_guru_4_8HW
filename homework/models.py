@@ -1,6 +1,6 @@
 class Product:
     """
-    Класс продукта без реализации методов
+    Класс продукта
     """
     name: str
     price: float
@@ -15,33 +15,21 @@ class Product:
 
     def check_quantity(self, quantity) -> bool:
         """
-        Верните True если количество продукта больше или равно запрашиваемому
-        и False в обратном случае
+        TODO Верните True если количество продукта больше или равно запрашиваемому
+            и False в обратном случае
         """
         raise NotImplementedError
 
     def buy(self, quantity):
+        """
+        TODO реализуйте метод покупки
+            Проверьте количество продукта используя метод check_quantity
+            Если продуктов не хватает, то выбросите исключение ValueError
+        """
         raise NotImplementedError
 
     def __hash__(self):
         return hash(self.name + self.description)
-
-
-class ProductByCount(Product):
-    """
-    Класс продукта, который продается поштучно.
-    TODO реализуйте метод покупки и метод проверки количества.
-        Метод покупки поштучно не должен позволять покупать дробное количество продукта
-    """
-    pass
-
-
-class ProductByWeight(Product):
-    """
-    Класс продукта, который продается весом.
-    # TODO реализуйте методы
-    """
-    pass
 
 
 class Cart:

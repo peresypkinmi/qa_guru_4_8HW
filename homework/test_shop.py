@@ -3,39 +3,31 @@
 """
 import pytest
 
-from homework.models import ProductByCount, ProductByWeight
+from homework.models import Product
 
 
 @pytest.fixture
-def product_by_count():
-    return ProductByCount("book", 100, "This is a book", 1000)
-
-
-@pytest.fixture
-def product_by_weight():
-    return ProductByWeight("apple", 10, "Just an apple", 1000)
+def product():
+    return Product("book", 100, "This is a book", 1000)
 
 
 class TestProducts:
     """
     Тестовый класс - это способ группировки ваших тестов по какой-то тематике
-    Например, текущий класс группирует тесты на класс Product и его наследников
+    Например, текущий класс группирует тесты на класс Product
     """
 
-    def test_product_by_count_check_quantity(self, product_by_count):
-        # TODO напишите проверки на метод check_quantity класса ProductByCount
+    def test_product_check_quantity(self, product):
+        # TODO напишите проверки на метод check_quantity
         pass
 
-    def test_product_by_count_buy(self, product_by_count):
-        # TODO напишите проверки на метод buy класса ProductByCount
+    def test_product_buy(self, product):
+        # TODO напишите проверки на метод buy
         pass
 
-    def test_product_by_weight_check_quantity(self, product_by_weight):
-        # TODO напишите проверки на метод check_quantity класса ProductByWeight
-        pass
-
-    def test_product_by_weight_buy(self, product_by_weight):
-        # TODO напишите проверки на метод buy класса ProductByWeight
+    def test_product_buy_more_than_available(self, product):
+        # TODO напишите проверки на метод buy,
+        #  которые ожидают ошибку ValueError при попытке купить больше, чем есть в наличии
         pass
 
 
@@ -44,5 +36,5 @@ class TestCart:
     TODO Напишите тесты на методы класса Cart
         На каждый метод у вас должен получиться отдельный тест
         На некоторые методы у вас может быть несколько тестов.
-        Например, негативные тесты, ожидающие ошибку (используйте pytest.raises чтобы проверить это)
+        Например, негативные тесты, ожидающие ошибку (используйте pytest.raises, чтобы проверить это)
     """
