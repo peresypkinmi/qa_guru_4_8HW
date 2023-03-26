@@ -18,7 +18,7 @@ class Product:
         TODO Верните True если количество продукта больше или равно запрашиваемому
             и False в обратном случае
         """
-        raise NotImplementedError
+        return self.quantity >= quantity
 
     def buy(self, quantity):
         """
@@ -26,7 +26,10 @@ class Product:
             Проверьте количество продукта используя метод check_quantity
             Если продуктов не хватает, то выбросите исключение ValueError
         """
-        raise NotImplementedError
+        if self.check_quantity(quantity):
+            self.quantity -= quantity
+        else:
+            raise ValueError(f'Продукта {self.name} не достаточно на складе')
 
     def __hash__(self):
         return hash(self.name + self.description)
@@ -50,7 +53,10 @@ class Cart:
         Метод добавления продукта в корзину.
         Если продукт уже есть в корзине, то увеличиваем количество
         """
-        raise NotImplementedError
+        if product in self.products:
+            self.products[product] += quantity
+        else:
+            self.products[product] = quantity
 
     def remove_product(self, product: Product, quantity=None):
         """
@@ -58,13 +64,21 @@ class Cart:
         Если quantity не передан, то удаляется вся позиция
         Если quantity больше, чем количество продуктов в позиции, то удаляется вся позиция
         """
-        raise NotImplementedError
+        if quantity == None or quantity >= self.products[product]:
+            del self.products[product]
+        else:
+            self.products[product] -= quantity
 
     def clear(self):
-        raise NotImplementedError
+        self.products.clear()
 
     def get_total_price(self) -> float:
-        raise NotImplementedError
+        products_list = list(self.products.keys())
+        quantity_list = list(self.products.values())
+        total_price = 0
+        for i in range(len(products_list)):
+            total_price += (products_list[i].price * quantity_list[i])
+        return float(total_price)
 
     def buy(self):
         """
@@ -72,4 +86,10 @@ class Cart:
         Учтите, что товаров может не хватать на складе.
         В этом случае нужно выбросить исключение ValueError
         """
-        raise NotImplementedError
+        products_list = list(self.products.keys())
+        quantity_list = list(self.products.values())
+        for i in range(len(products_list)):
+            if quantity_list[i] <= products_list[i].quantity:
+                products_list[i].quantity = (products_list[i].quantity - quantity_list[i])
+            else:
+                raise ValueError(f'Товара {products_list[i].name} в корзине больше чем есть в наличии на складе')
