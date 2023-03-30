@@ -80,7 +80,7 @@ class TestCart:
     def test_buy_products_from_cart(self, cart, product):
         quantity_product_before_test = product.quantity
         cart.add_product(product, 2)
-        cart.buys()
+        cart.buy()
         assert product.quantity + 2 == quantity_product_before_test
         assert cart.products == {}
         cart.products[product] = 1000
